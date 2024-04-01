@@ -1,5 +1,6 @@
 package cheboksarov.blps_lab1.service.impl;
 
+import cheboksarov.blps_lab1.exceptions.MatchNotFoundException;
 import cheboksarov.blps_lab1.model.Match;
 import cheboksarov.blps_lab1.repository.MatchRepository;
 import cheboksarov.blps_lab1.service.MatchService;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -27,18 +29,22 @@ public class MatchServiceImplement implements MatchService {
     }
 
     @Override
-    public Match findById(Long id) {
-        return null;
+    public Match findById(Long id) throws MatchNotFoundException{
+        Optional<Match> matchOp = matchRepository.findById(id);
+        if (matchOp.isPresent()){
+            return matchOp.get();
+        }
+        throw new MatchNotFoundException(String.format("No Match with this id: %d", id));
     }
 
     @Override
-    public Match updateMatch(Long id) {
-        return null;
+    public Match updateMatch(Match match) {
+        return matchRepository.save(match);
     }
 
     @Override
-    public void deleteMatch(Long id) {
-
+    public void deleteMatch(Long match_id) {
+        matchRepository.deleteById(match_id);
     }
 
 }

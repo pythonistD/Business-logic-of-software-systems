@@ -8,6 +8,6 @@ public interface MatchService {
     List<Match> findAllMatch();
     Match saveMatch(Match match);
     Match findById(Long id);
-    Match updateMatch(Long id);
-    void deleteMatch(Long id);
+    Match updateMatch(Match match);
+    void deleteMatch(Long match_id);
 }

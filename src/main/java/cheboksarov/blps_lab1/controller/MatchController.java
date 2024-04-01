@@ -23,4 +23,24 @@ public class MatchController {
         return matchService.saveMatch(match);
     }
 
+    //@PostMapping("save_match_empty_stat")
+    //public Match
+
+    @GetMapping("/{match_id}")
+    public Match getMatchById(@PathVariable Long match_id){
+        return matchService.findById(match_id);
+    }
+
+    @PutMapping("update")
+    public Match updateMatch(@RequestBody Match match){
+        return matchService.updateMatch(match);
+    }
+
+    @DeleteMapping("/{match_id}")
+    public void deleteMatch(Long match_id){
+        matchService.deleteMatch(match_id);
+    }
+
+
+
 }
