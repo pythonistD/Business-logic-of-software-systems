@@ -3,11 +3,6 @@ package cheboksarov.blps_lab1.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-enum Status {
-    NotStarted,
-    Going,
-    Ended
-}
 
 @Data
 @Entity
@@ -27,4 +22,9 @@ public class Match {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_statistic_guests", referencedColumnName = "stat_id")
     private Statistics guestsStat;
+    private enum Status {
+        NotStarted,
+        Going,
+        Ended
+    }
 }

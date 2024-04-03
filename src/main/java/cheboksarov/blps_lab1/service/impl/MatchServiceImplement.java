@@ -1,9 +1,12 @@
 package cheboksarov.blps_lab1.service.impl;
 
 import cheboksarov.blps_lab1.exceptions.MatchNotFoundException;
+import cheboksarov.blps_lab1.model.Coefficient;
 import cheboksarov.blps_lab1.model.Match;
 import cheboksarov.blps_lab1.repository.MatchRepository;
+import cheboksarov.blps_lab1.service.CoefficientService;
 import cheboksarov.blps_lab1.service.MatchService;
+import cheboksarov.blps_lab1.service.StatisticsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ import java.util.Optional;
 public class MatchServiceImplement implements MatchService {
 
     private final MatchRepository matchRepository;
+    private final CoefficientService coefficientService;
+    private final StatisticsService statisticsService;
 
     @Override
     public List<Match> findAllMatch() {
@@ -25,6 +30,13 @@ public class MatchServiceImplement implements MatchService {
 
     @Override
     public Match saveMatch(Match match) {
+        if (match.getCoefficient() == null){
+            match.setCoefficient(coefficientService.createDefaultCoefficient());
+        }
+        if((match.getGuestsStat() == null) & (match.getHostsStat() == null)){
+            match.setGuestsStat(statisticsService.createDefaultStatistics());
+            match.setHostsStat(statisticsService.createDefaultStatistics());
+        }
         return matchRepository.save(match);
     }
 

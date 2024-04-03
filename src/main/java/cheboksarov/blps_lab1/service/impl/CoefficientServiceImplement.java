@@ -26,4 +26,21 @@ public class CoefficientServiceImplement implements CoefficientService {
     public Coefficient saveCoefficient(Coefficient coefficient) {
         return coefficientRepository.save(coefficient);
     }
+
+    @Override
+    public Coefficient createDefaultCoefficient() {
+        Coefficient coefficient = Coefficient.builder().guests_wins(1f)
+                .hosts_wins(1f).total_one(1f).total_two(2f).total_three(3f).build();
+        return coefficientRepository.save(coefficient);
+    }
+
+    @Override
+    public Coefficient updateCoefficient(Coefficient coefficient) {
+        return null;
+    }
+
+    @Override
+    public void deleteCoefficient(Long coeffId) {
+
+    }
 }

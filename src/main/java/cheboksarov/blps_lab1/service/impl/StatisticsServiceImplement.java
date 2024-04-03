@@ -27,4 +27,27 @@ public class StatisticsServiceImplement implements StatisticsService {
     public Statistics save(Statistics statistics) {
         return statisticsRepository.save(statistics);
     }
+
+    @Override
+    public Statistics createDefaultStatistics() {
+        Statistics statistics = Statistics.builder()
+                .cornerKicks(0).score(0).penalties(0)
+                .yCards(0).rCards(0).shotsOnTarget(0)
+                .build();
+        return statisticsRepository.save(statistics);
+    }
+
+    @Override
+    public Statistics updateStatistics(Statistics statistics) {
+        return statisticsRepository.save(statistics);
+    }
+
+    @Override
+    public void deleteStatistics(Long statId) {
+        Optional<Statistics> statisticsOp = statisticsRepository.findById(statId);
+        if(statisticsOp.isPresent()){
+            statisticsRepository.delete(statisticsOp.get());
+        }
+
+    }
 }
